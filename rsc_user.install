@@ -1,0 +1,19 @@
+<?php
+
+
+/**
+ * Implements hook_install().
+ */
+function rsc_user_install() {
+
+  rsc_user_field_config();
+  
+}
+
+
+/**
+ * Implements hook_uninstall().
+ */
+function rsc_user_uninstall() {
+  // TODO: remove variables
+}
