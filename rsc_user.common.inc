@@ -34,6 +34,9 @@ function rsc_user_field_config() {
       'bundle'      => 'user',
       'label'       => $t('Full name and surname'),
       'required'    => false,
+      'settings'    => array(
+        'user_register_form' => true,
+      ),
     ));
     $instances[] = $fieldname;
   }
