@@ -37,6 +37,10 @@ function rsc_user_field_config() {
       'settings'    => array(
         'user_register_form' => true,
       ),
+      'widget'      => array(
+        'weight' => -10,  // at the top
+      ),
+      'description' => "Enter your full name and surname. This will be used as a display name for communications.",
     ));
     $instances[] = $fieldname;
   }
