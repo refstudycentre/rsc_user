@@ -1,0 +1,60 @@
+<?php
+
+// TODO: declare field 'field_fullname' on user bundle
+
+/**
+ * Implements hook_menu_alter().
+ */
+function rsc_user_menu_alter(&$items) {
+
+  // enable preacher path logout
+  // TODO: move this to a 'preaching library' module?
+  $items['preacher/logout'] = $items['user/logout'];
+
+}
+
+
+/**
+ * Implements hook_form_FORM_ID_alter
+ * Modify user edit page
+ */
+function rsc_user_form_user_profile_form_alter(&$form,$form_state,$form_id){
+
+  // merge mass contact settings into email settings
+  // check for its existence, so we don't have to depend on the module
+  if (!empty($form['mass_contact'])) {
+    // change mass_contact
+    unset($form['mass_contact']['#type']);
+
+    if (empty($form['mimemail'])) {
+      $form['mimemail'] = array();
+    }
+
+    // move
+    $form['mimemail']['mass_contact'] = $form['mass_contact'];
+    unset ($form['mass_contact']);
+  }
+}
+
+
+/**
+ * Implements hook_page_alter(&$page).
+ * https://api.drupal.org/api/drupal/modules!system!system.api.php/function/hook_page_alter/7
+ */
+function rsc_user_page_alter(&$page) {
+
+  // alter the user page
+  global $user;
+  // TODO: move this to a 'preaching library' module?
+  if (arg(0) == 'user' && in_array('Preaching Library User', $user->roles)) {
+    $page['content']['back_to_pl'] = array(
+      '#prefix' => '<span id="back_to_pl">',
+      '#suffix' => '</span>',
+      '#markup' => l('← Click to go back to Preaching Library','pl'),
+      '#weight' => -1,
+    );
+    $page['content']['#sorted'] = FALSE; // flag for re-sorting
+  }
+
+}
+
