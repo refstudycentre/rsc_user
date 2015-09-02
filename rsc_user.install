@@ -6,6 +6,8 @@
  */
 function rsc_user_install() {
 
+  module_load_include('inc','rsc_user','rsc_user.common');
+
   rsc_user_field_config();
   
 }
