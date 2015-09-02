@@ -1,6 +1,5 @@
 <?php
 
-// TODO: declare field 'field_fullname' on user bundle
 
 /**
  * Implements hook_menu_alter().
