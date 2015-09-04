@@ -57,3 +57,44 @@ function rsc_user_page_alter(&$page) {
 
 }
 
+
+/**
+ * Implements hook_views_api().
+ * https://api.drupal.org/api/views/views.api.php/function/hook_views_api/7
+ */
+function rsc_user_views_api() {
+  return array('api' => 3.0);
+}
+
+
+/**
+ * Implements hook_views_default_views().
+ * https://api.drupal.org/api/views/views.api.php/function/hook_views_default_views/7
+ * Taken from http://websmiths.co/blog/drupal-views-tutorials-exporting-views-code
+ */
+function rsc_user_views_default_views() {
+
+  /*
+   * Finds all files that match a given mask in a given directory
+   * In our case, looks for any files named *.view in the /views directory
+   */
+
+  $files = file_scan_directory(drupal_get_path('module', 'rsc_user'), '/.view.inc/');
+  foreach ($files as $filepath => $file) {
+    require $filepath;
+    if (isset($view)) {
+      $views[$view->name] = $view;
+    }
+  }
+
+  /*
+   * Check that there are views in the directory
+   * This keeps the site from throwing errors if there are no views to return
+   */
+
+  if (!empty($views)) {
+    return $views;
+  }
+
+}
+

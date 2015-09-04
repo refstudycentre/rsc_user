@@ -2,3 +2,5 @@ name = RSC Users
 description = Adapt the behaviour of core user functionality for RSC
 core = 7.x
 package = "RSC"
+
+dependencies[] = views
